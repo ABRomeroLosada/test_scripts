@@ -32,74 +32,27 @@ png(file="circacompareDDLLostta01g00880.png")
 result.i$plot
 dev.off()
 
-t <- seq(from=0, to=20, by=0.5)
-t <- seq(from=0, to=, by=0.5)
+#probando con radianes
+t <- seq(from=0, to=10, by=0.5)
 wave.DD= 5.487292e-01 + 3.977647e-01 * cos( 4.190e11 * (t-8.005159))
 wave.LL= 7.339324e-01 + 1.429324e-01 * cos( 4.190e11 * (t-2.345114e+01))
 
-png(file="DDnew.png")
+##probando con h xq se supone que cicacompare trata con h
+t<-seq(from=0, to=20, by=0.83)
+wave.DD= 5.487292e-01 + 3.977647e-01 * cos( 24 * (t-8.005159))
+wave.LL= 7.339324e-01 + 1.429324e-01 * cos( 24 * (t-2.345114e+01))
+
+wave.SD <- wave.DD + wave.LL
 plot(x= t, 
-     y=wave.DD, 
+     y=wave.DD/max(wave.DD), 
      type="o",col="red",
      lwd=3, ylab="", xlab="", axes=T, lty=3)
-dev.off()
+lines(x=t,
+      y=wave.LL/max(wave.LL),
+      type="o", col="orange",
+      lwd=3, lty=3)
 
-wave12.DD <- wave.DD[1:12]
-png(file="DD12.png")
-plot(x= t[1:12], 
-     y=wave12.DD, 
-     type="o",col="red",
-     lwd=3, ylab="", xlab="", axes=T, lty=3)
-dev.off()
-
-wave12.LL<- wave.LL[1:12]
-png(file="LL12.png")
-plot(x= t[1:12], 
-     y=wave12.LL, 
-     type="o",col="red",
-     lwd=3, ylab="", xlab="", axes=T, lty=3)
-dev.off()
-
-
-
-png(file="LLnew.png")
-plot(x= t, 
-     y=wave.LL, 
-     type="o",col="red",
-     lwd=3, ylab="", xlab="", axes=T, lty=3)
-dev.off()
-
-wave12.SD <- wave12.LL+wave12.DD
-png(file="SD12new.png")
-plot(x= t[1:12], 
-     y=wave12.SD, 
-     type="o",col="red",
-     lwd=3, ylab="", xlab="", axes=T, lty=3)
-dev.off()
-
-png(file="total12.png")
-plot(x= t[1:12], 
-     y=wave12.DD/max(wave12.DD), 
-     type="o",col="red",
-     lwd=3, ylab="", xlab="", axes=T, lty=3)
-lines(x= t[1:12], 
-      y=wave12.LL/max(wave12.LL), 
-      type="o",col="orange",
-      lwd=3,lty=3)
-lines(x= t[1:12], 
-      y=wave12.SD/max(wave12.SD), 
-      type="o",col="red",
+lines(x=t,
+      y=wave.SD/max(wave.SD),
+      type="o", col="red",
       lwd=3, lty=1)
-legend("bottomleft", 
-       legend = c("DD", "LL", "DD+LL"), 
-       lwd=2, col = c("red", "orange", "red"), 
-       lty=c(3,3,1))
-
-dev.off()
-
-
-###en el paper dicen que como periodo es 24h, podemos quitar tau 
-#y poner el t en radianes. 
-wave.DD= 5.487292e-01 + 3.977647e-01 * cos( 4.190e11 * (t-8.005159))
-wave.LL= 7.339324e-01 + 1.429324e-01 * cos( 4.190e11 * (t-2.345114e+01))
-
