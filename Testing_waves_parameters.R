@@ -32,43 +32,28 @@ png(file="circacompareDDLLostta01g00880.png")
 result.i$plot
 dev.off()
 
-t <- seq(from=0, to=20, by=0.5)
-wave.DD= 5.487292e-01 + 3.977647e-01 * cos( 24 * (t-8.005159))
-wave.LL= 7.339324e-01 + 1.429324e-01 * cos( 24 * (t-2.345114e+01))
+t <- seq(from=0, to=10, by=0.5)
+wave.DD= 5.487292e-01 + 3.977647e-01 * cos( 4.190e11 * (t-8.005159))
+wave.LL= 7.339324e-01 + 1.429324e-01 * cos( 4.190e11 * (t-2.345114e+01))
 
-png(file="DDnew.png")
+png(file="DDnew12.png")
 plot(x= t, 
      y=wave.DD, 
      type="o",col="red",
      lwd=3, ylab="", xlab="", axes=T, lty=3)
-# lines(x = time.points, type="o",
-#       y=SD.DD/max(SD.DD),
-#       lwd=4,col="red",lty=1)
-# axis(side=1,lwd=3,
-#      at =time.points, labels=colnames(SD.DD),
-#      las=2)
-# legend("topright", 
-#        legend = c("cicacompare DD","real DD"), 
-#        lwd=2, col = c("red", "blue", "orange"), 
-#        lty=c(3,1,1))
 dev.off()
 
-png(file="LLnew.png")
+png(file="LLnew12.png")
 plot(x= t, 
      y=wave.LL, 
      type="o",col="red",
      lwd=3, ylab="", xlab="", axes=T, lty=3)
-# lines(x = time.points, type="o",
-#       y=SD.DD/max(SD.DD),
-#       lwd=4,col="red",lty=1)
-# axis(side=1,lwd=3,
-#      at =time.points, labels=colnames(SD.DD),
-#      las=2)
-# legend("topright", 
-#        legend = c("cicacompare DD","real DD"), 
-#        lwd=2, col = c("red", "blue", "orange"), 
-#        lty=c(3,1,1))
 dev.off()
 
-
-
+wave.SD <- wave.LL+wave.DD
+png(file="SDnew.png")
+plot(x= t, 
+     y=wave.SD, 
+     type="o",col="red",
+     lwd=3, ylab="", xlab="", axes=T, lty=3)
+dev.off()
