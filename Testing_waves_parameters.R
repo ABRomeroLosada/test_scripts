@@ -1,15 +1,14 @@
 library(circacompare)
 
-gene.expression <- read.table(file="../gene_expression.tsv",header = T,sep = "\t")
-gene.expression.SD <- gene.expression[,31:48]
+gene.expression <- read.table(file="gene_expression.tsv",header = T,sep = "\t")
+gene.expression.SD <- gene.expression[,44:85]
+gene.expression.SD.DD <- gene.expression[,74:85]
+gene.expression.SD.LL <- gene.expression[,62:73]
 
-gene.expression <- read.table(file="../gene_expression.tsv",header = T,sep = "\t")
-gene.expression.LD <- gene.expression[,1:18]
+gene.expression.LD <- gene.expression[,1:43]
+gene.expression.LD.DD <- gene.expression[,32:43]
+gene.expression.LD.LL <- gene.expression[,20:31]
 
-swath.normalized.data.SD <- read.table(file = "../sd_swath_processed_data.tsv",header=T,sep="\t")
-rownames(swath.normalized.data.SD)<- swath.normalized.data.SD$X
-swath.normalized.data.SD$X <- NULL
 
-swath.normalized.data.LD <- read.table(file = "../swath_processed_data.tsv",header=T,sep="\t")
-swath.normalized.data.LD[,"zt20_2"] <- swath.normalized.data.LD[,"zt16_2"]
-swath.normalized.data.LD[,"zt16_2"] <- swath.normalized.data.LD[,"zt20_2"]
+
+gene <- "ostta01g00880"
