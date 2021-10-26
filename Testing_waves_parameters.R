@@ -61,3 +61,29 @@ legend("bottomleft",
        legend = c("DD", "LL", "DD+LL"), 
        lwd=2, col = c("red", "orange", "red"), 
        lty=c(3,3,1))
+
+######Comparing LL_SD vs. LL_LD and DD_SD vs. DD_LD
+gene <- "ostta01g00880"
+gene <- "ostta03g03470"
+
+for (i in 1:length(genes))
+{
+time.points <- seq(from=0,by=4,length.out = 12)
+circacompare.LL.LL <- matrix(nrow=length(genes),ncol=15)
+gene <- genes[i]
+SD.LL <-gene.expression.SD.LL[gene,]
+LD.LL <-gene.expression.LD.LL[gene,]
+
+circacomp.data <- data.frame(time=c(time.points,time.points),
+                             measure=c(t(SD.LL/max(SD.LL)),
+                                       t(LD.LL/max(LD.LL))),
+                             group=c(rep("LL_SD",12),rep("LL_LD",12)))
+result.i<- circacompare(x = circacomp.data, 
+                        col_time = "time", 
+                        col_group = "group", 
+                        col_outcome = "measure",
+                        alpha_threshold = 1)
+
+}
+
+
