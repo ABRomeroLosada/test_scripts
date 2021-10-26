@@ -63,13 +63,14 @@ legend("bottomleft",
        lty=c(3,3,1))
 
 ######Comparing LL_SD vs. LL_LD and DD_SD vs. DD_LD
-gene <- "ostta01g00880"
-gene <- "ostta03g03470"
+genes <- read.table(file="genes_two_peaks_sd_one_peak_ll_dd.txt", header = F)
+genes <- genes$V1
+i<-0
+time.points <- seq(from=0,by=4,length.out = 12)
+circacompare.LL.LL <- matrix(nrow=length(genes),ncol=15)
 
 for (i in 1:length(genes))
 {
-time.points <- seq(from=0,by=4,length.out = 12)
-circacompare.LL.LL <- matrix(nrow=length(genes),ncol=15)
 gene <- genes[i]
 SD.LL <-gene.expression.SD.LL[gene,]
 LD.LL <-gene.expression.LD.LL[gene,]
@@ -83,7 +84,37 @@ result.i<- circacompare(x = circacomp.data,
                         col_group = "group", 
                         col_outcome = "measure",
                         alpha_threshold = 1)
-
+circacompare.LL.LL[i,] <- result.i$summary[,2]
 }
+rownames(circacompare.LL.LL) <- as.character(genes)
+colnames(circacompare.LL.LL) <- result.i[[2]][,1]
+hist(circacompare.LL.LL[,13])
+mean(circacompare.LL.LL[,13])
 
+
+circacompare.DD.DD <- matrix(nrow=length(genes),ncol=15)
+
+for (i in 1:length(genes))
+{
+   gene <- genes[i]
+   SD.DD <-gene.expression.SD.DD[gene,]
+   LD.DD <-gene.expression.LD.DD[gene,]
+   
+   circacomp.data <- data.frame(time=c(time.points,time.points),
+                                measure=c(t(SD.DD/max(SD.DD)),
+                                          t(LD.DD/max(LD.DD))),
+                                group=c(rep("LL_SD",12),rep("LL_LD",12)))
+   result.i<- circacompare(x = circacomp.data, 
+                           col_time = "time", 
+                           col_group = "group", 
+                           col_outcome = "measure",
+                           alpha_threshold = 1)
+   circacompare.DD.DD[i,] <- result.i$summary[,2]
+}
+rownames(circacompare.DD.DD) <- as.character(genes)
+colnames(circacompare.DD.DD) <- result.i[[2]][,1]
+phase.diff <- matrix(circacompare.DD.DD[,13], circacompare.LL.LL[,13], ncol=2, nrow=length(genes))
+colnames(phase.diff) <- c("DD_SD vs. DD_LD", "LL_SD vs. LL_LD")
+boxplot(phase.diff, main="Phase difference between SD and LD")
+mean(circacompare.DD.DD[,13])
 
