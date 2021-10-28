@@ -63,8 +63,16 @@ heatmap.enzyme.id <- function(gene.id,enzyme.name,gene.expression,precision)
   return(plot)
 }
 
-png(filename =paste(c("heatmap_",gene.id,".png"),collapse=""))
+gene.id<- "kfl00001_0510"
+gene.name<- "kfl00001_0510"
+png(filename =paste(c("heatmap_",gene.name,".png"),collapse=""))
 heatmap.enzyme.id(gene.id=gene.id, 
-                  enzyme.name = "unknow",                                                            gene.expression=gene.expression,
-                  precision=78)
-dev.off
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=40)
+dev.off()
+
+## Gradient
+colfunc<-colorRampPalette(c("lightslateblue","white","gold"))
+plot(rep(1,1000),col=(colfunc(1000)), pch=15,cex=20,xlim=c(0,730),axes=F,
+     ylab="",xlab="")
