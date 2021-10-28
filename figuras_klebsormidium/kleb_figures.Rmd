@@ -111,3 +111,21 @@ plot(rep(1,1000),col=(colfunc(1000)), pch=15,cex=20,xlim=c(0,730),axes=F,
      ylab="",xlab="")
 
 ```
+
+###Carotenoids barplots.
+
+First of all, metabolomic data for carotenoids is loaded. After that, the table loaded is separeted in two vectors, one for the carotenoids names and another for the metabolomic cuantification data. 
+
+```{r, echo = TRUE, eval = TRUE}
+carotenoids <- read.table(file="carotenoids_klebsormidium.tsv",header=T,sep="\t",as.is=T)
+head(carotenoids)
+carotenoids.names <- carotenoids$carotenoid
+
+carotenoids <- carotenoids[,2:ncol(carotenoids)]
+rownames(carotenoids) <- carotenoids.names
+head(carotenoids)
+
+```
+
+```{r, echo = TRUE, eval = TRUE}
+
