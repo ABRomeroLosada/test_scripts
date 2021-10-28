@@ -127,5 +127,60 @@ head(carotenoids)
 
 ```
 
+Fold change and p-value for each carotenoid comparison is extracted and saved in different vectors.
 ```{r, echo = TRUE, eval = TRUE}
 
+carotenoids.p.value <- vector(mode = "numeric",length=length(carotenoids.names))
+carotenoids.fold.change <- vector(mode = "numeric",length=length(carotenoids.names))
+
+names(carotenoids.p.value) <- carotenoids.names
+names(carotenoids.fold.change) <- carotenoids.names
+```
+
+Using the data extracted, a barplot for each carotenoid will be generated using the following function. It represents the amount of carotenoid in a diferrent bar for each condition. 
+
+```{r, echo = TRUE, eval = TRUE}
+for(i in 1:length(carotenoids.names))
+{
+  current.carotenoid <- carotenoids.names[i]
+  
+  hl.1 <- unlist(carotenoids[current.carotenoid,1:4])
+  ll.1 <- unlist(carotenoids[current.carotenoid,5:7])
+  mean.ll.1 <- mean(ll.1)
+  norm.hl.1 <- hl.1/mean.ll.1
+  norm.ll.1 <- ll.1/mean.ll.1
+  
+  norm.ll <- c(norm.ll.1)
+  norm.hl <- c(norm.hl.1)
+  
+  means <- c(mean(norm.ll), mean(norm.hl))
+  sds <- c(sd(norm.ll), sd(norm.hl))
+  
+  if(means[1] > means[2])
+  {
+    sig <- t.test(x = norm.ll,norm.hl,alternative = "greater")
+  } else
+  {
+    sig <- t.test(x = norm.ll,norm.hl,alternative = "less")
+  }
+  
+  carotenoids.p.value[i] <- sig$p.value
+  carotenoids.fold.change[i] <- means[2]/means[1]
+  
+  png(filename = paste0(current.carotenoid,".png"),width = 300)
+  par(lwd=3)
+  xpos <- barplot(means,col=c("lightslateblue","gold"),
+                  names.arg = c("LL","HL"),las=2,cex.names = 1.5,
+                  ylim=c(0,max(means+sds)*1.2),cex.axis = 1.5,lwd=3,
+                  main=current.carotenoid,
+                  cex.main=2)
+  points(x = rep(xpos[1]+0.2,3),y=norm.ll)
+  points(x = rep(xpos[2]+0.2,4),y=norm.hl)
+  arrows(x0 = xpos,y0 = means + sds, x1 = xpos, y1 = means - sds,length = 0.1,
+         code = 3,angle=90,lwd=2)
+  dev.off()
+}
+
+
+
+```
