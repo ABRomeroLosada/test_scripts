@@ -1,0 +1,113 @@
+### Loading data. 
+
+Before generating the different figures included in this paper, the proccesed rna-seq data must be loaded.
+
+```{r, echo = TRUE, eval = TRUE}
+gene.expression <- read.table(file = "gene_expression_kleb.tsv", header=T, as.is=T)
+
+gene.expression.HL <- (gene.expression[,"HL_1"] + gene.expression[,"HL_2"])/2
+names(gene.expression.HL) <- gene.expression$geneID
+
+```
+
+Now, the mean expression levels of the different conditions can be calculated. The abbreviation "HL" stands for *high ligth* condition while "LL" stands for *low light* condition.
+```{r, echo = TRUE, eval = TRUE}
+mean.expression.HL <- (gene.expression[,"HL_1"] + gene.expression[,"HL_2"])/2
+names(mean.expression.HL) <- gene.expression$geneID
+
+mean.expression.LL <- (gene.expression[,"LL_1"] + gene.expression[,"LL_2"])/2
+names(mean.expression.LL) <- gene.expression$geneID
+
+```
+
+From this point, the mean expression levels of each condition will be used to generate the following figures 
+
+### Heatmaps.
+
+Heatmaps were created to show the expression level of each enzyme represented in the figures included in the final paper. The function used to generate them recieve as input the KO id of a desirable enzyme and it will generate a different heatmap for each gene related to the target KO.
+
+```{r, echo = TRUE, eval = TRUE}
+heatmap.enzyme.id <- function(gene.id,enzyme.name,gene.expression,precision)
+{
+  pos.colfunc <- colorRampPalette(c("white","gold"))
+  pos.colors <- pos.colfunc(precision)
+  
+  neg.colfunc <- colorRampPalette(c("white","lightslateblue"))
+  neg.colors <- neg.colfunc(precision)
+  
+  fc.max <- 0
+  fc.min <- 20
+
+    enzyme.mean.HL <- mean.expression.HL[gene.id]
+    enzyme.mean.LL <- mean.expression.LL[gene.id]
+    fc <- enzyme.mean.HL/enzyme.mean.LL
+
+    if(fc >= 1)
+    {
+      if(fc >= fc.max)
+      {
+        fc.max <- fc
+      }
+      
+      if(round(fc*10) < precision)
+      {
+        cols <- pos.colors[round(fc*10)]
+      } else
+      {
+        cols <- pos.colors[precision]
+      }
+      
+    } else
+    {
+      if(fc <= fc.min)
+      {
+        fc.min <- fc
+      }
+      
+      if(round(10/fc) < precision)
+      {
+        cols <- neg.colors[round(10/fc)]
+      } else
+      {
+        cols <- neg.colors[precision]
+      }
+      
+    }
+    plot<-plot(x=0,y=0,col="white",
+                    axes=F,xlab="",ylab="",
+                    ylim=c(0,10),xlim=c(0,10))
+    
+    plot<-polygon(x = c(2,8,8,2),y=c(2,2,8,8),lwd=6,col = cols)
+    return(plot)
+}
+
+
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",                                                            gene.expression=gene.expression,
+                  precision=78)
+
+
+## Gradient
+colfunc<-colorRampPalette(c("lightslateblue","white","gold"))
+plot(rep(1,1000),col=(colfunc(1000)), pch=15,cex=20,xlim=c(0,730),axes=F,
+     ylab="",xlab="")
+```
+
+Now, we use this function to generate the corresponding heatmap of the gene *kfl00001_0090* as an example.
+
+```{r, echo = TRUE, eval = TRUE}
+
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",                                                            gene.expression=gene.expression,
+                  precision=78)
+
+```
+
+Furthermore, in order to make the figure as much clear as possible, a color gradient scale is generated so the reader can easily understand the use of color. Blue stands for repressed genes, gold for the activated ones and white will only be used for genes which expression levels are not altered by our study conditions. 
+```{r, echo = TRUE, eval = TRUE}
+
+colfunc<-colorRampPalette(c("lightslateblue","white","gold"))
+plot(rep(1,1000),col=(colfunc(1000)), pch=15,cex=20,xlim=c(0,730),axes=F,
+     ylab="",xlab="")
+
+```
