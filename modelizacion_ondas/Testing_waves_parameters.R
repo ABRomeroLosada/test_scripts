@@ -123,6 +123,9 @@ mean(circacompare.DD.DD[,13])
 #Function for extracting the strenght and frequency of the waves that compose the resulting one
 #as calculated by GeneCycle
 #circ.data <- as.numeric(fousdll)
+library(GeneCycle)
+library(stats)
+
 extract.individual.waves <- function(circ.data) #n.samples must be even
 {
    perio <- periodogram(circ.data)
@@ -223,9 +226,12 @@ photo.and.skoto <- function(gene.name, genes.expression, sd.ll, sd.cycle)
    return(list(norm.wave = dec.wave.ll.2, norm.photo = dec.wave.ll, skoto.norm = ext.dec.wave.cycle))
 }
 
+######para DD
+#onda marcos
 result.fourier <- photo.and.skoto(gene.name=gene, genes.expression = gene.expression,
                 sd.ll= names(gene.expression.SD.LL)[1:6],
                 sd.cycle = names(gene.expression.SD)[1:12])
+#onda a partir de la real
 result.real <- wave.decomposition.scaled(data.fou = as.numeric(SD.DD), 
                                          n.waves= 1, time=48, acq.freq = 0.25,
                                          ts=seq(0,44,4))
@@ -239,35 +245,45 @@ real.DD <- real.DD/max(real.DD)
 real.DD <- matrix(ncol=12, nrow=1,real.DD)
 colnames(real.DD) <- names(SD.DD)
 rownames(real.DD) <- gene
+
+#para cicacompare no puede haber dos 1.
+fourier.DD[10]<-0.99
 circacompare.DD.fou <- matrix(ncol=1,nrow=15)
 gene <- gene
 
       circacomp.data <- data.frame(time=c(time.points,time.points),
-                                   measure=c(t(fourier.DD/max(fourier.DD)),
-                                             t(real.DD/max(real.DD))),
+                                   measure=c(t(fourier.DD),
+                                             t(real.DD)),
                                    group=c(rep("DD_fou",12),rep("DD_SD",12)))
       result.i<- circacompare(x = circacomp.data, 
                               col_time = "time", 
                               col_group = "group", 
                               col_outcome = "measure",
                               alpha_threshold = 1)
-      circacompare.DD.DD[i,] <- result.i$summary[,2]
+     
+      #####para LL
+      fourier.LL <- result.fourier$norm.photo
+      fourier.LL<- matrix(ncol=12, nrow=1,as.numeric(Mod(result.fourier$norm.wave)))
+      colnames(fourier.LL) <- names(SD.DD)
+      rownames(fourier.LL) <- gene
+      result.real.LL <- wave.decomposition.scaled(data.fou = as.numeric(SD.LL), 
+                                               n.waves= 1, time=48, acq.freq = 0.25,
+                                               ts=seq(0,44,4))
+      real.LL <- Mod(result.real.LL$wave.points) - min(Mod(result.real.LL$wave.points))
+      real.LL <- real.LL/max(real.LL)
+      real.LL <- matrix(ncol=12, nrow=1,real.LL)
+      colnames(real.LL) <- names(SD.LL)
+      rownames(real.LL) <- gene
+      circacompare.LL.fou <- matrix(ncol=1,nrow=15)
+      
 
-   rownames(circacompare.DD.DD) <- as.character(genes)
-   colnames(circacompare.DD.DD) <- result.i[[2]][,1]
-   SD.DD <-gene.expression.SD.DD[gene,]
-   LD.DD <-gene.expression.LD.DD[gene,]
-   
    circacomp.data <- data.frame(time=c(time.points,time.points),
-                                measure=c(t(LD.DD/max(LD.DD)),
-                                          t(SD.DD/max(SD.DD))),
-                                group=c(rep("LL_LD",12),rep("LL_SD",12)))
+                                measure=c(t(fourier.LL),
+                                          t(real.LL)),
+                                group=c(rep("LL_fou",12),rep("LL_SD",12)))
    result.i<- circacompare(x = circacomp.data, 
                            col_time = "time", 
                            col_group = "group", 
                            col_outcome = "measure",
                            alpha_threshold = 1,timeout_n = 20000)
-   circacompare.DD.DD[i,] <- result.i$summary[,2]
-
-rownames(circacompare.DD.DD) <- as.character(genes)
-colnames(circacompare.DD.DD) <- result.i[[2]][,1]
+   
