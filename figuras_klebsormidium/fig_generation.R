@@ -225,6 +225,14 @@ heatmap.enzyme.id(gene.id=gene.id,
                   precision=60)
 dev.off()
 
+gene.id<- "kfl00604_0070"
+gene.name<- "VDE"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
 
 ## Carotenoids
 carotenoids <- read.table(file="carotenoids_klebsormidium.tsv",header=T,sep="\t",as.is=T)
@@ -284,8 +292,8 @@ for(i in 1:length(carotenoids.names))
 
 
 ## Gradient
-png(file="scale_klebs")
-colfunc<-colorRampPalette(c("lightslateblue","white","orange2"))
+png(file="scale_klebs.jpg")
+colfunc<-colorRampPalette(c("blue","white","red"))
 plot(rep(1,1000),col=(colfunc(1000)), pch=15,cex=20,xlim=c(0,730),axes=F,
      ylab="",xlab="")
 dev.off()
