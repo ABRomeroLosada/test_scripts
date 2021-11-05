@@ -132,7 +132,7 @@ for(i in 1:length(carotenoids.names))
 
 ## Gradient
 png(file="scale_klebs")
-colfunc<-colorRampPalette(c("lightslateblue","white","gold"))
+colfunc<-colorRampPalette(c("lightslateblue","white","orange2"))
 plot(rep(1,1000),col=(colfunc(1000)), pch=15,cex=20,xlim=c(0,730),axes=F,
      ylab="",xlab="")
 dev.off()
