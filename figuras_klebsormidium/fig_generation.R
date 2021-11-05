@@ -11,10 +11,10 @@ names(mean.expression.LL) <- gene.expression$geneID
 
 heatmap.enzyme.id <- function(gene.id,enzyme.name,gene.expression,precision)
 {
-  pos.colfunc <- colorRampPalette(c("white","gold"))
+  pos.colfunc <- colorRampPalette(c("white","red"))
   pos.colors <- pos.colfunc(precision)
   
-  neg.colfunc <- colorRampPalette(c("white","lightslateblue"))
+  neg.colfunc <- colorRampPalette(c("white","blue"))
   neg.colors <- neg.colfunc(precision)
   
   fc.max <- 0
@@ -63,13 +63,166 @@ heatmap.enzyme.id <- function(gene.id,enzyme.name,gene.expression,precision)
   return(plot)
 }
 
-gene.id<- "kfl00001_0850"
-gene.name<- "kfl00001_0850"
-png(filename =paste(c("heatmap_",gene.name,".png"),collapse=""))
+gene.id<- "kfl00098_0080"
+gene.name<- "LCHII"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
 heatmap.enzyme.id(gene.id=gene.id, 
                   enzyme.name = "unknow",  
                   gene.expression=gene.expression,
-                  precision=50)
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00238_0100"
+gene.name<- "Psb28"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00614_0030"
+gene.name<- "PsbO"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00239_0120"
+gene.name<- "PsbP"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00638_0030"
+gene.name<- "PsbW"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00093_0070"
+gene.name<- "PsbS"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00478_0030"
+gene.name<- "LHCSR"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00009_0280"
+gene.name<- "PTOX"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00342_0140"
+gene.name<- "PGRL1"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00020_0020"
+gene.name<- "PGR5"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00564_0070"
+gene.name<- "Ndh"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00169_0050"
+gene.name<- "FNR"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00017_0060"
+gene.name<- "FD"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00433_0020"
+gene.name<- "Cytb6f"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00519_0080"
+gene.name<- "PsaK"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00193_0150"
+gene.name<- "PsaD"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00213_0040"
+gene.name<- "PsaF"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00283_0090"
+gene.name<- "PsaO"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "unknow",  
+                  gene.expression=gene.expression,
+                  precision=60)
 dev.off()
 
 
