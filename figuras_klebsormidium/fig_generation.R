@@ -229,10 +229,22 @@ gene.id<- "kfl00604_0070"
 gene.name<- "VDE"
 png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
 heatmap.enzyme.id(gene.id=gene.id, 
-                  enzyme.name = "unknow",  
+                  enzyme.name = "VDE",  
                   gene.expression=gene.expression,
                   precision=60)
 dev.off()
+
+gene.id<- "kfl00041_0060"
+gene.name<- "Flv"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "Flv",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+
+
 
 ## Carotenoids
 carotenoids <- read.table(file="carotenoids_klebsormidium.tsv",header=T,sep="\t",as.is=T)
