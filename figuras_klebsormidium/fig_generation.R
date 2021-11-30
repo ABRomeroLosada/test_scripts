@@ -243,6 +243,30 @@ heatmap.enzyme.id(gene.id=gene.id,
                   precision=60)
 dev.off()
 
+gene.id<- "kfl00048_0040"
+gene.name<- "APX"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "Flv",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+gene.id<- "kfl00631_0030"
+gene.name<- "SOD"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "Flv",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+gene.id<- "kfl00025_0120"
+gene.name<- "MDAR"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "Flv",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
 
 
 
