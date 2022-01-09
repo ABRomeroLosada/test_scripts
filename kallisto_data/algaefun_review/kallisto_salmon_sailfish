@@ -1,0 +1,37 @@
+	#####KALLISTO. Usa un psuedoalineamiento para ahorrar tiempo. Para ello necesita un
+	#####index del transcriptoma que se construye:
+kallisto index -i index.idx data.fasta.gz
+	##Cuantificación de abundancias de transcripts
+kallisto quant -i index.idx -o output -b 100 reads_1.fastq.gz reads_2.fastq.gz
+	#o single reads
+kallisto quant -i transcripts.idx -o output -b 100 --single -l 180 -s 20 reads_1.fastq.gz
+	#tienes que especificar con -l y -s la longitud y la desviación estandar de los fragmentos 		#(no de #las lecturas). Con el argumento -o determinas donde se guardan los resultados, y el argumento -b es "number of bootstrap samples". 
+	#También se puede acceder a los ficheros del pseudoalineamiento obteniendo archivos bam y 		#bam.bai que puedes procesar con samtools y visualizar en igv
+kallisto quant -i transcripts.kidx -b 30 -o kallisto_out --genomebam --gtf transcripts.gtf.gz --chromosomes chrom.txt reads_1.fastq.gz reads_2.fastq.gz
+	
+	
+	
+	#####SALMON. Solo necesita de un índice del transcriptoma y los fastq. Tiene tambíen la 		####opcion de partir de un bam file en lugar de un fastq, lo cual acelera el proceso 	####porque no necesita crear el index. 
+	####Con index: 
+salmon index -t transcripts.fa -i transcripts_index --decoys decoys.txt -k 31
+ 	####While the mapping algorithms will make used of arbitrarily long matches between the 		####query and reference, the k size selected here will act as the minimum acceptable 	####length for a valid match.
+ 	####31 está bien para reads de mas o menos 75pb. Si ves poco mapping rate, prueba 		####dismunullendo el valo de -k. Decoys: To use the entire genome of the organism as the 		####decoy sequence. This can be done by concatenating the genome to the end of the 		####transcriptome you want to index and populating the decoys.txt file with the chromosome 		####names. https://combine-lab.github.io/alevin-tutorial/2019/selective-alignment. Se 		####supone que con eso hace un selective alignment y cuantifica directamente.
+salmon quant -i transcripts_index -l <LIBTYPE> -1 reads1.fq -2 reads2.fq --validateMappings -o output
+salmon quant -i transcripts_index -l <LIBTYPE> -r reads.fq --validateMappings -o transcripts_quant
+	
+     	
+     	###SAILFISH: alignment-free transcript quantification. 
+	###construyes previamente un index usando kmers de una longitud concreta (the minimum 		###match size that will be considered in the quasi-mapping procedure during 	   		###quantification.) para un transcriptoma de referencia.
+sailfish index -t <ref_transcripts> -o <out_dir> -k <kmer_len>
+	###PAra la cuantificacion: 
+sailfish quant -i <index_dir> -l "<libtype>" {-r <unmated> | -1 <mates1> -2 <mates2>} -o <quant_dir>
+	###<unmated> is a list of files containing unmated reads, <mates{1,2}> are lists of files 		###containig, respectively, the first and second mates of paired-end reads.
+	
+	LIBTYPE de salmon y sailfish. 
+	*TopHat* 	*Salmon (and Sailfish)*
+  	               Paired-end  Single-end
+-fr-unstranded 	-l IU 	        -l U
+-fr-firststrand 	-l ISR 	-l SR
+-fr-secondstrand 	-l ISF 	-l SF
+https://sailfish.readthedocs.io/en/master/library_type.html#fraglibtype
+
