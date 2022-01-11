@@ -269,6 +269,91 @@ heatmap.enzyme.id(gene.id=gene.id,
 dev.off()
 
 
+gene.id<- "kfl00753_0080"
+gene.name<- "PPH1"
+png(filename =paste(c("./fotosintesis/","heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "PPH1",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+
+
+###################################### Carotenoids 
+
+gene.id<- "kfl00019_0320"
+gene.name<- "PSY"
+png(filename =paste(c("heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "PSY",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+
+gene.id<- "kfl00103_0130"
+gene.name<- "PDS"
+png(filename =paste(c("heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "PDS",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00496_0070"
+gene.name<- "ZDS"
+png(filename =paste(c("heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "ZDS",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00536_0070"
+gene.name<- "LCYe"
+png(filename =paste(c("heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "LCYe",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00003_0600"
+gene.name<- "LCYb"
+png(filename =paste(c("heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "LCYe",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00515_0050"
+gene.name<- "BCH"
+png(filename =paste(c("heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "BCH",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id<- "kfl00604_0070"
+gene.name<- "VDE"
+png(filename =paste(c("heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "VDE",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
+
+gene.id <-  "kfl00092_0060"
+gene.name<- "ZEP"
+png(filename =paste(c("heatmap_",gene.name,".png"),collapse=""))
+heatmap.enzyme.id(gene.id=gene.id, 
+                  enzyme.name = "VDE",  
+                  gene.expression=gene.expression,
+                  precision=60)
+dev.off()
 
 ## Carotenoids
 carotenoids <- read.table(file="carotenoids_klebsormidium.tsv",header=T,sep="\t",as.is=T)

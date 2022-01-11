@@ -9,6 +9,7 @@ microalgae <- c("bprasinos", "creinhardtii", "csubellipsoidea",
                 "czofingiensis", "dsalina", "hlacustris", "knitens",
                 "mendlicherianum", "mpusilla", "ngaditana",
                 "ptricornutum","smuscicola", "vcarteri")
+#i<-6
 for (i in 1:length(microalgae))
 {
   genome.data <- read.fasta(file = paste("./genomes/",microalgae[i],".fa.gz", sep=""),seqtype = "DNA")
@@ -21,6 +22,10 @@ for (i in 1:length(microalgae))
 
 ostta.genome.data <- read.fasta(file = "ostreococcus_tauri.fa.gz",seqtype = "DNA")
 ostta.genome.seqs <- getSequence(ostta.genome.data)
+
+chrom.data <- data.frame(getName(ostta.genome.data),sapply(X = ostta.genome.seqs,FUN = length))
+write.table(x = chrom.data,file = "chrom_ostreococcus_tauri.txt",quote = F,row.names = F,col.names = F, sep = "\t")
+
 
 chrom.data <- data.frame(getName(ostta.genome.data),sapply(X = ostta.genome.seqs,FUN = length))
 write.table(x = chrom.data,file = "chrom_ostreococcus_tauri.txt",quote = F,row.names = F,col.names = F, sep = "\t")
